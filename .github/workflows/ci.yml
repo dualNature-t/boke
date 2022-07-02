@@ -9,12 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v3
 
-    - name: build and deploy
-      uses: JamesIves/github-pages-deploy-action@master
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: master
-        FOLDER: build
-        BUILD_SCRIPT: npm install && npm run build
+    - name: install and build
+      run: npm install && npm run build
+    
+    - name: deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        # folder: build
+        token: ${{ secrets.ACCESS_TOKEN }}
+        branch: online
